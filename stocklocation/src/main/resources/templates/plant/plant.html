@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/index.css}" rel="stylesheet">
+	<title>メニュー画面</title>
+</head>
+
+<body>
+	<header>
+		<h1 class="title">在庫管理システム</h1>
+	</header>
+	<div class="margin">
+		<div class="path">
+			<p class="menu-path"><a href="/">Top</a></p>
+			<p class="plant-menu">/ 工場マスタ一覧</p>
+		</div>
+	</div>
+	<div class="search-margin">
+		<div class="search-background">
+			<form action="/plant" method="post">
+				<input type="text" class="textbox" name="name">
+				<input type="button" class="search-botton" value="検索">
+			</form>
+		</div>
+		<button class="new-botton"><a style="color: white;" href="/plant/new">新規</a></button>
+	</div>
+
+	<div class="margin">
+		<table>
+			<tr>
+				<th>名称</th>
+				<th>ふりがな</th>
+				<th>更新日時</th>
+				<th></th>
+			</tr>
+			<tr th:each="user : ${userlist}" th:object="${user}" class="align-middle">
+				<td th:text="*{name}"></td>
+				<td th:text="*{furigana}"></td>
+				<td th:text="${#dates.format(user.updated_at, 'yyyy/MM/dd')}"></td>
+				<td style="width: 120px; table-layout: fixed">
+					<a th:href="@{/user/{id}(id=*{id})}" class="update-botton">編集</a>
+					<a th:href="@{/user/{id}(id=*{id})}" class="delete-botton">削除</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+
+</html>
