@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
+/*　ヘッダー*/
 header {
 	display: flex;
 	width: 100%;
 	height: 80px;
-	background-color: rgb(43, 43, 43);
+	background-color: #2B2B2B;
 	align-items: center;
-	/*  position: fixed;*/
 }
 
 .title {
@@ -15,23 +15,23 @@ header {
 	padding-left: 30px;
 	font-size: 20px;
 }
-
+/*　共通*/
 .margin {
 	margin: 40px 150px 0px;
 }
 
 a {
 	 text-decoration: none;
+	 color: #1e90ff;
 }
 /*  工場*/
 .path {
 	display: flex;
 	width: 100%;
 	height: 50px;
-	background-color: rgb(223, 223, 223);
+	background-color: #ededed;
 	border-radius: 5px;
 	align-items: center;
-
 }
 
 .menu-path {
@@ -50,43 +50,35 @@ a {
 
 .search-background {
 	display: flex;
-	width: 88%;
-	height: 50px;
-	background-color: rgb(223, 223, 223);
+	width: 93%;
+	height: 60px;
+	background-color: #ededed;
 	border-radius: 5px;
 	align-items: center;
 	margin-right: 10px;
-	padding-left: 30px;
-
+	padding-left: 20px;
 }
 
 .textbox {
-    padding: 7px 10px; /*ボックスを大きくする*/
+    width: 500px;
+    height: 30px;
     border-radius: 3px; /*ボックス角の丸み*/
     border: 1px solid #ddd; /*枠線*/
-    box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+    font-size: 16px;
 }
 
-.search-botton {
+.search-button {
 	color: white;
-	background-color: rgb(0, 187, 187);
+	background-color: #00BBBB;
 	border: none;
 	border-radius: 5px;
 	padding: 5px 8px;
+	font-size: 14px;
 }
 
-.new-botton {
+.new-button {
 	color: white;
-	background-color: rgb(0, 128, 255);
-	border: none;
-	border-radius: 5px;
-	padding: 5px 8px;
-	margin: 10px 0px;
-}
-
-.update-botton {
-	color: white;
-	background-color: rgb(0, 128, 255);
+	background-color: #0080FF;
 	border: none;
 	border-radius: 5px;
 	padding: 5px 8px;
@@ -94,9 +86,19 @@ a {
 	font-size: 14px;
 }
 
-.delete-botton {
+.update-button {
 	color: white;
-	background-color: rgb(255, 0, 0);
+	background-color: #0080FF;
+	border: none;
+	border-radius: 5px;
+	padding: 5px 8px;
+	margin: 10px 0px;
+	font-size: 14px;
+}
+
+.delete-button {
+	color: white;
+	background-color: #FF0000;
 	border: none;
 	border-radius: 5px;
 	padding: 5px 8px;
@@ -105,11 +107,10 @@ a {
 }
 
 th,td {
-    border: solid 1px rgb(223, 223, 223);   
+    border: solid 1px #ededed;
     padding: 5px 5px; 
     white-space: nowrap;
     table-layout: fixed;
-             
 }
  
 table {
@@ -118,3 +119,32 @@ table {
     text-align: left;
 }
 
+.register-button {
+    color: white;
+    background-color: #0080FF;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 8px;
+    margin: 10px 0px;
+    font-size: 14px;
+}
+
+.form-row {
+    display: flex; /*　横並び　*/
+}
+
+.form-group {
+    display:flex;
+    flex-flow: column;　/*　縦並び　*/
+    margin: 0px; /*　これがないと幅消える謎　*/
+    padding: 0px 20px 20px 0px;
+}
+
+.form-group2 {
+    display:flex;
+    flex-flow: column;　/*　縦並び　*/
+}
+
+label {
+    font-weight: bold;
+}

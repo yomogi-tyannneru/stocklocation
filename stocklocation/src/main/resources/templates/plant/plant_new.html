@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header::head"></head>
+<body>
+<header  th:replace="common/header::header"></header>
+	<div class="margin">
+		<div class="path">
+			<p class="menu-path"><a href="/">Top</a></p>
+			<p class="plant-menu">/ </p>
+			<p class="plant-menu"><a href="/plant">工場マスタ一覧</a></p>
+			<p class="plant-menu">/ 新規</p>
+		</div>
+	</div>
+	<div class="margin">
+<!--		バリデーション-->
+		<div th:if="${validationError}" th:each="error : ${validationError}">
+			<label class="text-danger" th:text="${error}"></label>
+		</div>
+<!--		フィールドとDTOからエンティティまでつながっている-->
+		<form th:action="@{/plant/create}" th:object="${plantDto}" th:method="post">
+			<div class="form-row">
+				<div class="form-group">
+					<label>名称</label>
+					<input type="text" th:field="*{name}" class="textbox">
+				</div>
+				<div class="form-group">
+					<label>ふりがな</label>
+					<input type="text" th:field="*{furigana}" class="textbox">
+				</div>
+			</div>
+			<div class="text-center">
+				<input type="submit" value="登録" class="register-button">
+			</div>
+		</form>
+	</div>
+</body>
+</html>

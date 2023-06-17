@@ -12,12 +12,12 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 /**
- * ユーザー情報 Entity
+ * 工場情報 Entity
  */
 @Entity
 @Data
 @Table(name = "plants")
-public class User implements Serializable {
+public class Plant implements Serializable {
 	/**
 	 * ID
 	 */
@@ -26,33 +26,43 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	/**
-	 * 名前
+	 * 名称
 	 */
 	@Column(name = "name")
 	private String name;
 	/**
-	 * 住所
+	 * ふりがな
 	 */
 	@Column(name = "furigana")
 	private String furigana;
 	/**
+	 * 検索用名称
+	 */
+	@Column(name = "search_name")
+	private String searchName;
+	/**
+	 * 検索用ふりがな
+	 */
+	@Column(name = "search_furigana")
+	private String searchFurigana;
+	/**
 	 * 更新日時
 	 */
 	@Column(name = "created_at")
-	private Date created_at;
+	private Date createdAt;
 	/**
 	 * 登録日時
 	 */
 	@Column(name = "updated_at")
-	private Date updated_at;
+	private Date updatedAt;
 	/**
-	 * 削除日時
+	 * 作成者
 	 */
 	@Column(name = "create_user_id")
-	private Long create_user_id;
+	private Long createUserId;
 	/**
-	 * 削除日時
+	 * 更新者
 	 */
 	@Column(name = "update_user_id")
-	private Long update_user_id;
+	private Long updateUserId;
 }

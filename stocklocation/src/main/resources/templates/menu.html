@@ -1,16 +1,9 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-	<meta charset="UTF-8">
-	<link th:href="@{/css/index.css}" rel="stylesheet">
-	<title>メニュー画面</title>
-</head>
-
+<html xmlns:th="http://www.thymeleaf.org">
+<!--th:replace="templatesからのパス::th:fragmentに設定した記述"-->
+<head th:replace="common/header::head"></head>
 <body>
-	<header>
-		<h1 class="title">在庫管理システム</h1>
-	</header>
+	<header th:replace="common/header::header"></header>
 	<div class="margin">
 		<h1>メニュー</h1>
 		<ul class="menu-group">
