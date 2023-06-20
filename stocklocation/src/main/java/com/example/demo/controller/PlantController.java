@@ -78,7 +78,45 @@ public class PlantController {
 // 工場情報の登録
 		plantService.plantCreate(plantDto);
 		return "redirect:/plant";
+	}
+
+	/**
+	 * 工場編集画面を表示
+	 *
+	 * @param model Model
+	 * @return 工場マスタ一覧画面
+	 */
+	@GetMapping("/plant/edit")
+	public String plantEdit(Model model, PlantDto editPlant) {
+//　登録フォームとカラムの関連付け　バリデーション
+		editPlant = plantService.getPlant(editPlant.getId());
+		model.addAttribute(editPlant);
+		return "plant/plant_edit";
+	}
 
 
+	/**
+	 * 工場更新
+	 *
+	 * @param plantDto リクエストデータ
+	 * @param model       Model
+	 * @return 工場マスタ一覧画面
+	 */
+	@PostMapping("/plant/update")
+	public String plantUpdate(@Validated @ModelAttribute PlantDto plantDto, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+// 入力チェックエラーの場合　
+// TODO　パスを/plant/newのままに変更　mysqlもnotnullに変更
+			List<String> errorList = new ArrayList<>();
+			for (ObjectError error : result.getAllErrors()) {
+				errorList.add(error.getDefaultMessage());
+			}
+			model.addAttribute("validationError", errorList);
+			return "plant/plant_edit";
+		}
+// 工場情報の登録
+		plantService.plantUpdate(plantDto);
+		return "redirect:/plant";
 	}
 }

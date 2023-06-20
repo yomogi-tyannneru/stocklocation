@@ -45,4 +45,34 @@ public class PlantService {
 //		TODO　ログイン機能実装後 カラム追加
 		plantRepository.save(plant);
 	}
+
+	// 受け取ったidからデータを取得して、Formを返却する
+	public PlantDto getPlant(Long id) {
+		// idを指定して工場の情報を取得する
+//		orElseThrow()メソッドにnullを渡すと、値が存在しない場合にNullPointerExceptionがスローされます。
+		Plant plant = plantRepository.findById(id).orElseThrow();
+
+		// PlantDtoに値を設定する
+		PlantDto editPlant = new PlantDto();
+		editPlant.setId(plant.getId());
+		editPlant.setName(plant.getName());
+		editPlant.setFurigana(plant.getFurigana());
+
+		return editPlant;
+	}
+
+	// 本を更新する
+	public void plantUpdate(PlantDto editPlant) {
+
+		// データベースに登録する値を保持するインスタンスの作成
+		Plant plant = new Plant();
+
+		// 画面から受け取った値を設定する
+		plant.setId(editPlant.getId());
+		plant.setName(editPlant.getName());
+		plant.setFurigana(editPlant.getFurigana());
+
+		// データベースを更新する
+		plantRepository.save(plant);
+	}
 }

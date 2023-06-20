@@ -15,7 +15,7 @@ public class MenuController {
 	 */
 
 	@GetMapping("/")
-	public String index() {
+	public String menu() {
 		return "menu";
 	}
 }
