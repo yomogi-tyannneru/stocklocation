@@ -35,8 +35,7 @@
 				<td th:text="${plant.furigana}"></td>
 				<td th:text="${#dates.format(plant.updatedAt, 'yyyy/MM/dd')}"></td>
 				<td style="width: 120px; table-layout: fixed">
-<!--					<a th:href="@{/plant/edit" class="update-button">編集</a>-->
-					<a th:href="@{/plant/edit/{id}(id=*{id})}" class="update-button">編集</a>
+					<a th:href="@{/plant/edit(id=${plant.id})}" class="update-button">編集</a>
 					<a th:href="@{/plant/{id}(id=*{id})}" class="delete-button">削除</a>
 				</td>
 			</tr>
