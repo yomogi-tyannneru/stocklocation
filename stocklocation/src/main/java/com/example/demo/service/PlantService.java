@@ -34,36 +34,42 @@ public class PlantService {
 	 * 工場情報 新規登録
 	 * @param plantDto 工場情報
 	 */
-	public void plantCreate(PlantDto plantDto) {
+	public void createPlant(PlantDto plantDto) {
 		Date now = new Date();
 		Plant plant = new Plant();
 		plant.setName(plantDto.getName());
 		plant.setFurigana(plantDto.getFurigana());
-//		時刻も追加
+		// 時刻も追加
 		plant.setCreatedAt(now);
 		plant.setUpdatedAt(now);
-//		TODO　ログイン機能実装後 カラム追加
+		// TODO　ログイン機能実装後 カラム追加
 		plantRepository.save(plant);
 	}
 
-	// 受け取ったidからデータを取得して、Formを返却する
+	/**
+	 * 受け取ったidからデータを取得して、Dtoを返却する
+	 * @param id
+	 * @return
+	 */
 	public PlantDto getPlant(Long id) {
 		// idを指定して工場の情報を取得する
-//		orElseThrow()メソッドにnullを渡すと、値が存在しない場合にNullPointerExceptionがスローされます。
+		// orElseThrow()メソッドにnullを渡すと、値が存在しない場合にNullPointerExceptionがスローされます。
 		Plant plant = plantRepository.findById(id).orElseThrow();
 
 		// PlantDtoに値を設定する
-		PlantDto editPlant = new PlantDto();
-		editPlant.setId(plant.getId());
-		editPlant.setName(plant.getName());
-		editPlant.setFurigana(plant.getFurigana());
+		PlantDto plantDto = new PlantDto();
+		plantDto.setId(plant.getId());
+		plantDto.setName(plant.getName());
+		plantDto.setFurigana(plant.getFurigana());
 
-		return editPlant;
+		return plantDto;
 	}
 
-	// 本を更新する
-	public void plantUpdate(PlantDto editPlant) {
-
+	/**
+	 * 工場情報を更新する
+	 * @param editPlant
+	 */
+	public void updatePlant(PlantDto editPlant) {
 		// データベースに登録する値を保持するインスタンスの作成
 		Plant plant = new Plant();
 
