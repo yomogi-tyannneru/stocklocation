@@ -13,7 +13,6 @@ public class MenuController {
 	 * @return メニュー画面
 	 *
 	 */
-
 	@GetMapping("/")
 	public String menu() {
 		return "menu";

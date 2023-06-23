@@ -31,14 +31,14 @@ public class PlantController {
 	 *
 	 * @return 工場マスタ一覧画面
 	 */
-//	実際のパス
+	// 実際のパス
 	@GetMapping("/plant")
 	public String plant(Model model) {
-//	テーブルから取得したデータを変数に格納
+		//	テーブルから取得したデータを変数に格納
 		List<Plant> plantlist = plantService.searchAll();
-//	"引数を渡す名称", 渡すデータ
+		// "引数を渡す名称", 渡すデータ
 		model.addAttribute("plantlist", plantlist);
-//		templatesからのパス
+		// templatesからのパス
 		return "plant/plant";
 	}
 
@@ -49,8 +49,8 @@ public class PlantController {
 	 * @return 工場マスタ一覧画面
 	 */
 	@GetMapping("/plant/new")
-	public String plantNew(Model model) {
-//　登録フォームとカラムの関連付け　バリデーション
+	public String viewCreatePage(Model model) {
+		// 登録フォームとカラムの関連付け　バリデーション
 		model.addAttribute("plantDto", new PlantDto());
 		return "/plant/plant_new";
 	}
@@ -63,11 +63,11 @@ public class PlantController {
 	 * @return 工場マスタ一覧画面
 	 */
 	@PostMapping("/plant/create")
-	public String plantCreate(@Validated @ModelAttribute PlantDto plantDto, BindingResult result, Model model) {
+	public String create(@Validated @ModelAttribute PlantDto plantDto, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-// 入力チェックエラーの場合　
-// TODO　パスを/plant/newのままに変更　mysqlもnotnullに変更
+			// 入力チェックエラーの場合　
+			// TODO　パスを/plant/newのままに変更　mysqlもnotnullに変更
 			List<String> errorList = new ArrayList<>();
 			for (ObjectError error : result.getAllErrors()) {
 				errorList.add(error.getDefaultMessage());
@@ -75,8 +75,8 @@ public class PlantController {
 			model.addAttribute("validationError", errorList);
 			return "plant/plant_new";
 		}
-// 工場情報の登録
-		plantService.plantCreate(plantDto);
+		// 工場情報の登録
+		plantService.createPlant(plantDto);
 		return "redirect:/plant";
 	}
 
@@ -87,8 +87,8 @@ public class PlantController {
 	 * @return 工場マスタ一覧画面
 	 */
 	@GetMapping("/plant/edit")
-	public String plantEdit(Model model, PlantDto editPlant) {
-//　登録フォームとカラムの関連付け　バリデーション
+	public String viewEditPage(Model model, PlantDto editPlant) {
+		// 登録フォームとカラムの関連付け　バリデーション
 		editPlant = plantService.getPlant(editPlant.getId());
 		model.addAttribute(editPlant);
 		return "plant/plant_edit";
@@ -103,11 +103,11 @@ public class PlantController {
 	 * @return 工場マスタ一覧画面
 	 */
 	@PostMapping("/plant/update")
-	public String plantUpdate(@Validated @ModelAttribute PlantDto plantDto, BindingResult result, Model model) {
+	public String update(@Validated @ModelAttribute PlantDto plantDto, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-// 入力チェックエラーの場合　
-// TODO　パスを/plant/newのままに変更　mysqlもnotnullに変更
+			// 入力チェックエラーの場合　
+			// TODO　パスを/plant/newのままに変更　mysqlもnotnullに変更
 			List<String> errorList = new ArrayList<>();
 			for (ObjectError error : result.getAllErrors()) {
 				errorList.add(error.getDefaultMessage());
@@ -115,8 +115,8 @@ public class PlantController {
 			model.addAttribute("validationError", errorList);
 			return "plant/plant_edit";
 		}
-// 工場情報の登録
-		plantService.plantUpdate(plantDto);
+		// 工場情報の登録
+		plantService.updatePlant(plantDto);
 		return "redirect:/plant";
 	}
 }
