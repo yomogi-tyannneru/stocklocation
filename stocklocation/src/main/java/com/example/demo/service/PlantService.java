@@ -80,6 +80,7 @@ public class PlantService implements AbstractPlantService{
 		Plant plantId = plantRepository.findById(id).orElseThrow();
 		Plant plant = new Plant();
 		// 画面から受け取った値を設定する
+		plant.setId(plantId.getId());
 		plant.setName(plantDto.getName());
 		plant.setFurigana(plantDto.getFurigana());
 		plant.setCreatedAt(plantId.getCreatedAt());
