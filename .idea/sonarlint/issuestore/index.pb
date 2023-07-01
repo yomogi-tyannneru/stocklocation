@@ -29,8 +29,6 @@ Wstocklocation/src/main/java/com/example/demo/controller/ExceptionHandlerControl
 Lstocklocation/src/main/java/com/example/demo/controller/ErrorController.java,7\e\7e68845156353a8808b67325aff37b2575a118c4
 y
 Istocklocation/src/main/java/com/example/demo/util/YamlResourceBundle.java,c\9\c951e57f0d35d781ddc0a31c71cb2173cf175e27
-{
-Kstocklocation/src/main/java/com/example/demo/controller/MenuController.java,a\2\a220b4ce53107e2aeb0084d57b7448549b4bd03d
 |
 Lstocklocation/src/main/java/com/example/demo/config/MessageSourceConfig.java,d\b\dbc5330dc9e3d8311289811d4cbce18579062286
 E
@@ -41,7 +39,5 @@ J
 stocklocation/build.gradle,8\2\82c33ff285561d0826461d57179f25c951300deb
 l
 <stocklocation/src/main/java/com/example/demo/api/sslApi.java,a\1\a150e6eb37f57a854013fe7263bb1681b8425194
-|
-Lstocklocation/src/main/java/com/example/demo/repository/PlantRepository.java,d\2\d2fa1a70a60f9734775d9fe67b81db4ea50b954c
 k
 ;stocklocation/src/main/resources/templates/plant/plant.html,9\9\99677d6e1c13b76f128f93af2e491f3b6feb24d4

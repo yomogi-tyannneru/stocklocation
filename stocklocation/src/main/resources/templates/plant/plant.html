@@ -33,7 +33,8 @@
 				<!--			th:text="要素格納用の変数.カラム"-->
 				<td th:text="${plant.name}"></td>
 				<td th:text="${plant.furigana}"></td>
-				<td th:text="${#dates.format(plant.updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></td>
+				<!--				日付を自由にフォーマット-->
+				<td th:text="${#temporals.format(plant.updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></td>
 				<td style="width: 120px; table-layout: fixed">
 					<a th:href="@{/plant/edit(id=${plant.id})}" class="update-button">編集</a>
 					<a th:href="@{/plant/{id}(id=*{id})}" class="delete-button">削除</a>

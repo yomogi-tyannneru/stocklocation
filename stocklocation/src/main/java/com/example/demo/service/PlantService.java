@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.example.demo.dto.PlantDto;
@@ -78,7 +77,6 @@ public class PlantService implements AbstractPlantService{
 	public void updatePlant(long id, PlantDto plantDto) {
 		// データベースに登録する値を保持するインスタンスの作成
 		LocalDateTime localDateTime = LocalDateTime.now();
-//		DateTimeFormatter FormatLocalDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		Plant plantId = plantRepository.findById(id).orElseThrow();
 		Plant plant = new Plant();
 		// 画面から受け取った値を設定する
