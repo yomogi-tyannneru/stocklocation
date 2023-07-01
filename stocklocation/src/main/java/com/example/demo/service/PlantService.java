@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.example.demo.dto.PlantDto;
@@ -14,7 +15,7 @@ import com.example.demo.repository.PlantRepository;
  * 工場情報 Service
  */
 @Service
-public class PlantService {
+public class PlantService implements AbstractPlantService{
 
 	/**
 	 * 工場情報 Repository
@@ -24,6 +25,7 @@ public class PlantService {
 
 	/**
 	 * 工場情報 全検索
+	 *
 	 * @return 検索結果
 	 */
 	public List<Plant> searchAll() {
@@ -32,46 +34,59 @@ public class PlantService {
 
 	/**
 	 * 工場情報 新規登録
-	 * @param plantDto 工場情報
+	 *
+	 * @param plantDto
+	 *             工場情報
 	 */
-	public void plantCreate(PlantDto plantDto) {
-		Date now = new Date();
+	public void createPlant(PlantDto plantDto) {
+		LocalDateTime localDateTime = LocalDateTime.now();
 		Plant plant = new Plant();
 		plant.setName(plantDto.getName());
 		plant.setFurigana(plantDto.getFurigana());
-//		時刻も追加
-		plant.setCreatedAt(now);
-		plant.setUpdatedAt(now);
-//		TODO　ログイン機能実装後 カラム追加
+		plant.setCreatedAt(localDateTime);
+		//	TODO　ログイン機能実装後 カラム追加
 		plantRepository.save(plant);
 	}
 
-	// 受け取ったidからデータを取得して、Formを返却する
+	/**
+	 * 工場情報 新規登録
+	 *
+	 * @param id
+	 *          id
+	 */
 	public PlantDto getPlant(Long id) {
 		// idを指定して工場の情報を取得する
-//		orElseThrow()メソッドにnullを渡すと、値が存在しない場合にNullPointerExceptionがスローされます。
-		Plant plant = plantRepository.findById(id).orElseThrow();
-
+		//	orElseThrow()メソッドにnullを渡すと、値が存在しない場合にNullPointerExceptionがスローされます。
+		Plant plantId = plantRepository.findById(id).orElseThrow();
 		// PlantDtoに値を設定する
-		PlantDto editPlant = new PlantDto();
-		editPlant.setId(plant.getId());
-		editPlant.setName(plant.getName());
-		editPlant.setFurigana(plant.getFurigana());
+		PlantDto plantDto = new PlantDto();
+		plantDto.setId(plantId.getId());
+		plantDto.setName(plantId.getName());
+		plantDto.setFurigana(plantId.getFurigana());
 
-		return editPlant;
+		return plantDto;
 	}
 
-	// 本を更新する
-	public void plantUpdate(PlantDto editPlant) {
-
+	/**
+	 * 工場情報 新規登録
+	 *
+	 * @param id
+	 *　　       id
+	 * @param plantDto
+	 *             工場情報
+	 */
+	public void updatePlant(long id, PlantDto plantDto) {
 		// データベースに登録する値を保持するインスタンスの作成
+		LocalDateTime localDateTime = LocalDateTime.now();
+//		DateTimeFormatter FormatLocalDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		Plant plantId = plantRepository.findById(id).orElseThrow();
 		Plant plant = new Plant();
-
 		// 画面から受け取った値を設定する
-		plant.setId(editPlant.getId());
-		plant.setName(editPlant.getName());
-		plant.setFurigana(editPlant.getFurigana());
-
+		plant.setName(plantDto.getName());
+		plant.setFurigana(plantDto.getFurigana());
+		plant.setCreatedAt(plantId.getCreatedAt());
+		plant.setUpdatedAt(localDateTime);
+		//	TODO　ログイン機能実装後 カラム追加
 		// データベースを更新する
 		plantRepository.save(plant);
 	}

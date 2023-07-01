@@ -1,13 +1,10 @@
 package com.example.demo.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 工場情報 リクエストデータ
@@ -27,4 +24,8 @@ public class PlantDto implements Serializable {
 	 * ふりがな
 	 */
 	private String furigana;
+	/**
+	 * 作成日時
+	 */
+	private LocalDateTime createdAt;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang ="ja" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/header::head"></head>
 <body>
 <header  th:replace="common/header::header"></header>
@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="margin">
-<!--		TODO　何件中、何件表示追記、50件以上行くとページングさせる、表をしましまにする-->
+		<!--		TODO　何件中、何件表示追記、50件以上行くとページングさせる、表をしましまにする-->
 		<table>
 			<tr>
 				<th>名称</th>
@@ -28,12 +28,12 @@
 				<th>更新日時</th>
 				<th></th>
 			</tr>
-<!--			th:each="要素格納用の変数 : ${リスト}"-->
+			<!--			th:each="要素格納用の変数 : ${リスト}"-->
 			<tr th:each="plant : ${plantlist}" class="align-middle">
 				<!--			th:text="要素格納用の変数.カラム"-->
 				<td th:text="${plant.name}"></td>
 				<td th:text="${plant.furigana}"></td>
-				<td th:text="${#dates.format(plant.updatedAt, 'yyyy/MM/dd')}"></td>
+				<td th:text="${#dates.format(plant.updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></td>
 				<td style="width: 120px; table-layout: fixed">
 					<a th:href="@{/plant/edit(id=${plant.id})}" class="update-button">編集</a>
 					<a th:href="@{/plant/{id}(id=*{id})}" class="delete-button">削除</a>

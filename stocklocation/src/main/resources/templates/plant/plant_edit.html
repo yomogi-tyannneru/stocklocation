@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang ="ja" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/header::head"></head>
 <body>
 <header  th:replace="common/header::header"></header>
@@ -12,13 +12,13 @@
 		</div>
 	</div>
 	<div class="margin">
-<!--		バリデーション-->
+		<!--		バリデーション-->
 		<div th:if="${validationError}" th:each="error : ${validationError}">
 			<label class="text-danger" th:text="${error}"></label>
 		</div>
-<!--		フィールドとDTOからエンティティまでつながっている-->
+		<!--		フィールドとDTOからエンティティまでつながっている-->
 		<form th:action="@{/plant/update}" th:object="${plantDto}" th:method="post">
-<!--			idはデータベースから取得したものをhiddenタグを使って、画面で保持し、「更新」ボタンが押されたときにサーバーに送ります。-->
+			<!--			idはデータベースから取得したものをhiddenタグを使って、画面で保持し、「更新」ボタンが押されたときにサーバーに送ります。-->
 			<input type="hidden" th:field="*{id}" th:value="*{id}">
 			<div class="form-row">
 				<div class="form-group">

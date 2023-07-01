@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Plant;
 
 /**
- * ユーザー情報 Repository
+ * 工場情報 Repository
  */
 @Repository
 public interface PlantRepository extends JpaRepository<Plant, Long> {}

@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,15 +46,15 @@ public class Plant implements Serializable {
 	@Column(name = "search_furigana")
 	private String searchFurigana;
 	/**
-	 * 更新日時
+	 * 作成日時
 	 */
 	@Column(name = "created_at")
-	private Date createdAt;
+	private LocalDateTime createdAt;
 	/**
-	 * 登録日時
+	 * 更新日時
 	 */
 	@Column(name = "updated_at")
-	private Date updatedAt;
+	private LocalDateTime updatedAt;
 	/**
 	 * 作成者
 	 */
