@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PlantDto;
 import com.example.demo.entity.Plant;
 import com.example.demo.repository.PlantRepository;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(SpringExtension.class)
@@ -45,7 +46,7 @@ class PlantServiceTest {
 		// テスト実行
 		List<Plant> plants = testTarget.searchAll();
 		// 検証
-		assertEquals(2, plants.size());
+		assertEquals(1, plants.size());
 	}
 
 	private List<Plant> createTestData() {
@@ -58,10 +59,28 @@ class PlantServiceTest {
 		return plants;
 	}
 
-//	@Test
-//	void createPlant() {
-//	}
-//
+	@Test
+	void createPlant() {
+		// モック定義
+//		when(mockRepository.save(null)).thenReturn(expectedParam);
+
+
+		// テスト実行
+		PlantDto inputDto = new PlantDto();
+		inputDto.setId(10L);
+		inputDto.setName("工場1");
+		inputDto.setFurigana("こうじょういち");
+		testTarget.createPlant(inputDto);
+
+		// 検証（パラメータが想定通りかと呼び出し回数）
+		Plant expectedParam = new Plant();
+		expectedParam.setId(10L);
+		expectedParam.setName("工場1");
+		expectedParam.setFurigana("こうじょういち");
+		verify(mockRepository, times(1)).save(expectedParam);
+		// パラメータの検証はモック定義でやっている
+	}
+
 //	@Test
 //	void getPlant() {
 //	}

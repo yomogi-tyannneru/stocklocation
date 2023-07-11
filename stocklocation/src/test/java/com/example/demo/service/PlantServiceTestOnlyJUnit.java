@@ -2,10 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Plant;
 import com.example.demo.repository.PlantRepository;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,18 +19,16 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@SpringBootTest
 class PlantServiceTestOnlyJUnit {
 
 	// テスト対象
-	@Autowired
 	private AbstractPlantService testTarget = new PlantService();
 
 	// モック
 	private PlantRepository mockRepository = new PlantRepositoryMock();
 
 
-	@BeforeAll
+	@BeforeEach
 	public void setup() throws Exception {
 		// PlantServiceのplantRepositoryにモック実装を設定
 		//   privateメンバーなのでリフレクションで無理矢理設定
