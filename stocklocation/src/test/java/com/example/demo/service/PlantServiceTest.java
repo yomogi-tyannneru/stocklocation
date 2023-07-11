@@ -61,10 +61,6 @@ class PlantServiceTest {
 
 	@Test
 	void createPlant() {
-		// モック定義
-//		when(mockRepository.save(null)).thenReturn(expectedParam);
-
-
 		// テスト実行
 		PlantDto inputDto = new PlantDto();
 		inputDto.setId(10L);
@@ -78,7 +74,6 @@ class PlantServiceTest {
 		expectedParam.setName("工場1");
 		expectedParam.setFurigana("こうじょういち");
 		verify(mockRepository, times(1)).save(expectedParam);
-		// パラメータの検証はモック定義でやっている
 	}
 
 //	@Test
