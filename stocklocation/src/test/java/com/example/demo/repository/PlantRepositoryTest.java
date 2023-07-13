@@ -47,5 +47,8 @@ class PlantRepositoryTest {
 		expected.setFurigana("こうじょういち");
 		expected.setCreatedAt(LocalDateTime.of(2023, 6, 12, 21, 1));
 		assertEquals(expected.getId(), plant.get().getId());
+		assertEquals(expected.getName(), expected.getName());
+		assertEquals(expected.getFurigana(), expected.getFurigana());
+		assertEquals(expected.getCreatedAt(), expected.getCreatedAt());
 	}
 }
