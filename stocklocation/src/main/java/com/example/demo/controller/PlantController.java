@@ -21,7 +21,7 @@ import com.example.demo.entity.Plant;
  * 工場 Controller
  */
 @Controller
-public class PlantController extends ExceptionHandlerController{
+public class PlantController{
 	//	他のクラスを呼び出す省略記法
 	@Autowired
 	private AbstractPlantService abstractPlantService;
