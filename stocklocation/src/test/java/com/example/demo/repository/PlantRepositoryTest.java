@@ -41,14 +41,10 @@ class PlantRepositoryTest {
 		Optional<Plant> plant = plantRepository.findById(persisted.getId());
 
 		// 検証
-		Plant expected = new Plant();
-		expected.setId(persisted.getId());
-		expected.setName("工場１");
-		expected.setFurigana("こうじょういち");
-		expected.setCreatedAt(LocalDateTime.of(2023, 6, 12, 21, 1));
-		assertEquals(expected.getId(), plant.get().getId());
-		assertEquals(expected.getName(), expected.getName());
-		assertEquals(expected.getFurigana(), expected.getFurigana());
-		assertEquals(expected.getCreatedAt(), expected.getCreatedAt());
+		assertEquals(true, plant.isPresent());
+		assertEquals(persisted.getId(), plant.get().getId());
+		assertEquals("工場１", plant.get().getName());
+		assertEquals("こうじょういち", plant.get().getFurigana());
+		assertEquals(LocalDateTime.of(2023, 6, 12, 21, 1), plant.get().getCreatedAt());
 	}
 }
