@@ -83,7 +83,7 @@ class PlantServiceTest {
     // リリース時は画面もバックのテスト両方行う
     private List<Plant> createTestData() {
         List<Plant> plants = new ArrayList<>();
-        Plant plant = new Plant();
+        final var plant = new Plant();
         // Long型のためLが付く
         plant.setId(1L);
         plant.setName("工場1");
@@ -97,7 +97,7 @@ class PlantServiceTest {
         //　時刻の固定化　そのままだとずれるため テスト対象の時刻をモック化
         when(datetime.now()).thenReturn(LocalDateTime.of(2021, 10, 01, 10, 20));
         //　ダミーデータ
-        PlantDto inputData = new PlantDto();
+        final var inputData = new PlantDto();
         inputData.setId(1L);
         inputData.setName("工場1");
         inputData.setFurigana("こうじょういち");
@@ -120,7 +120,7 @@ class PlantServiceTest {
 
     @Test
     void getPlant() {
-        Plant dummyData = new Plant();
+        final var dummyData = new Plant();
         dummyData.setId(1L);
         dummyData.setName("工場1");
         dummyData.setFurigana("こうじょう1");
@@ -136,7 +136,7 @@ class PlantServiceTest {
     void updatePlant() {
         //　登録用のダミーデータ
         //　PlantがDB？
-        Plant dummyData = new Plant();
+        final var dummyData = new Plant();
         dummyData.setId(1L);
         dummyData.setName("工場1");
         dummyData.setFurigana("こうじょう1");
@@ -152,7 +152,7 @@ class PlantServiceTest {
 
         testTarget.updatePlant(1L, inputData);
 
-        Plant expectedParam = new Plant();
+        final var expectedParam = new Plant();
         expectedParam.setId(1L);
         expectedParam.setName("工場2");
         expectedParam.setFurigana("こうじょうに");
