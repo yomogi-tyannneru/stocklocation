@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.Plant;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 工場 Controller
  */
 //@Componentがbeanの役割　@Controllerに含まれている
 @Controller
-public class PlantController extends ExceptionHandlerController {
+public class PlantController {
     //	他のクラスを呼び出す省略記法　インスタンス化したものをセットしてる　newのみした場合、リポジトリなどがつかえなくなる
     @Autowired
     private AbstractPlantService abstractPlantService;
 
+    private static final int showPageSize = 3;
+
+    private static final int limit = 5;
     /**
      * 工場マスタ一覧画面を表示
      *
@@ -36,11 +40,28 @@ public class PlantController extends ExceptionHandlerController {
     //	実際のパスを記載
     //	modelについて調べる
     @GetMapping("/plant")
-    public String viewPlantListPage(Model model) {
-        //	テーブルから取得したデータを変数に格納
-        List<Plant> plantlist = abstractPlantService.searchAll();
-        //	"引数を渡す名称", 渡すデータ
+    public String viewPlantListPage(Model model, @RequestParam(defaultValue = "1") int page) {
+        // データ総数を取得
+        int total = abstractPlantService.count();
+        // データ一覧を取得
+        List<Plant> plantlist = abstractPlantService.findAll(page, limit);
+
+        // pagination処理
+        // "総数/1ページの表示数"から総ページ数を割り出す
+//        int totalPage = (total + Integer.valueOf(limit) - 1) / Integer.valueOf(limit);
+        int totalPage = (total + limit) / limit;
+        // 表示する最初のページ番号を算出（今回は3ページ表示する設定）
+        // (例)1,2,3ページのstartPageは1。4,5,6ページのstartPageは4
+        int startPage = page - (page - 1) % showPageSize;
+        // 表示する最後のページ番号を算出
+        int endPage = (startPage + showPageSize - 1 > totalPage) ? totalPage : startPage + showPageSize - 1;
         model.addAttribute("plantlist", plantlist);
+        model.addAttribute("total", total);
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         //	templatesからのパス
         return "plant/plant";
     }
