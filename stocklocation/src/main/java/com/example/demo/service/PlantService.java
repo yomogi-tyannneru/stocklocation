@@ -1,10 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.example.demo.dto.PlantDto;
+import com.example.demo.repository.PlantRepository2;
 import com.example.demo.util.Datetime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Plant;
@@ -25,6 +29,8 @@ public class PlantService implements AbstractPlantService {
     //	サービスnewだとnullになる　これをつかえるようにするのがbean　昔はxmlファイルにbeanを書く必要あり
     @Autowired
     private PlantRepository plantRepository;
+    @Autowired
+    private PlantRepository2 plantRepository2;
 
     /**
      * 工場情報 全検索
@@ -88,5 +94,22 @@ public class PlantService implements AbstractPlantService {
         //	TODO　ログイン機能実装後 カラム追加
         // データベースを更新する
         plantRepository.save(plant);
+    }
+
+    @Override
+    public int count() {
+        return (int)plantRepository.count();
+    }
+
+    @Override
+    public List<Plant> findAll(int pageNum, int count) {
+        boolean useJpql = true;
+        if (useJpql) {
+            return plantRepository2.findAll(pageNum, count);
+        } else {
+            Page<Plant> list = plantRepository.findAll(PageRequest.of(pageNum, count));
+            return list.stream().collect(Collectors.toList());
+        }
+
     }
 }

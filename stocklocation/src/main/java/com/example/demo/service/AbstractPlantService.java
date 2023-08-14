@@ -45,4 +45,18 @@ public interface AbstractPlantService {
      *             工場情報
      */
     void updatePlant(long id, PlantDto plantDto);
+
+    /**
+     * 工場情報の総件数を取得
+     * @return
+     */
+	int count();
+
+    /**
+     * 工場情報をページ指定で取得
+     * @param pageNum
+     * @param count
+     * @return
+     */
+    List<Plant> findAll(int pageNum, int count);
 }

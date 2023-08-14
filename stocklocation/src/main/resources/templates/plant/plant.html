@@ -1,47 +1,77 @@
 <!DOCTYPE html>
-<html lang ="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/header::head"></head>
 <body>
-<header  th:replace="common/header::header"></header>
-	<div class="margin">
-		<div class="path">
-			<p class="menu-path"><a href="/">Top</a></p>
-			<p class="plant-menu">/ 工場マスタ一覧</p>
-		</div>
+<header th:replace="common/header::header"></header>
+<div class="margin">
+	<div class="path">
+		<p class="menu-path"><a href="/">Top</a></p>
+		<p class="plant-menu">/ 工場マスタ一覧</p>
 	</div>
-	<div class="search-margin">
-		<div class="search-background">
-			<form action="/plant" method="post">
-				<input type="text" class="textbox" name="name">
-				<input type="button" class="search-button" value="検索">
-			</form>
-		</div>
-		<button class="new-button"><a style="color: white;" href="/plant/new">新規</a></button>
+</div>
+<div class="search-margin">
+	<div class="search-background">
+		<form action="/plant" method="post">
+			<input type="text" class="textbox" name="name">
+			<input type="button" class="search-button" value="検索">
+		</form>
 	</div>
+	<button class="new-button"><a style="color: white;" href="/plant/new">新規</a></button>
+</div>
 
-	<div class="margin">
-		<!--		TODO　何件中、何件表示追記、50件以上行くとページングさせる、表をしましまにする-->
-		<table>
-			<tr>
-				<th>名称</th>
-				<th>ふりがな</th>
-				<th>更新日時</th>
-				<th></th>
-			</tr>
-			<!--			th:each="要素格納用の変数 : ${リスト}"-->
-			<tr th:each="plant : ${plantlist}" class="align-middle">
-				<!--			th:text="要素格納用の変数.カラム"-->
-				<td th:text="${plant.name}"></td>
-				<td th:text="${plant.furigana}"></td>
-				<!--				日付を自由にフォーマット-->
-				<td th:text="${#temporals.format(plant.updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></td>
-				<td style="width: 120px; table-layout: fixed">
-					<a th:href="@{/plant/edit(id=${plant.id})}" class="update-button">編集</a>
-					<a th:href="@{/plant/{id}(id=*{id})}" class="delete-button">削除</a>
-				</td>
-			</tr>
-		</table>
-	</div>
+<div class="margin">
+	<!--		TODO　何件中、何件表示追記、50件以上行くとページングさせる、表をしましまにする-->
+	<table>
+		<tr>
+			<th>名称</th>
+			<th>ふりがな</th>
+			<th>更新日時</th>
+			<th></th>
+		</tr>
+		<!--			th:each="要素格納用の変数 : ${リスト}"-->
+		<tr th:each="plant : ${plantlist}" class="align-middle">
+			<!--			th:text="要素格納用の変数.カラム"-->
+			<td th:text="${plant.name}"></td>
+			<td th:text="${plant.furigana}"></td>
+			<!--				日付を自由にフォーマット-->
+			<td th:text="${#temporals.format(plant.updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></td>
+			<td style="width: 120px; table-layout: fixed">
+				<a th:href="@{/plant/edit(id=${plant.id})}" class="update-button">編集</a>
+				<a th:href="@{/plant/{id}(id=*{plant.id})}" class="delete-button">削除</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<nav>
+	<ul class="pagination pg-blue justify-content-center">
+		<li th:if="${startPage} > 1" class="page-item ">
+			<a class="page-link" th:href="@{'/plant?page=1'}" 　tabindex="-2">最初</a>
+		</li>
+		<li th:if="${page} > 1" class="page-item ">
+			<a class="page-link" th:href="@{'/plant?page=' + ${page-1}}" 　tabindex="-1">前へ</a>
+		</li>
+		<th:block th:if="${endPage}<=0">
+			<li class="page-item " th:classappend="${i == page} ? active" th:each="i : ${startPage}">
+				<a class="page-link" th:href="@{'/plant?page=' + ${i}}" th:text="${i}"></a>
+			</li>
+		</th:block>
+		<!-- StartPageからEndPageまでのページ数を表示する -->
+		<th:block th:if="${endPage}>0">
+			<li class="page-item " th:classappend="${i == page} ? active"
+			    th:each="i : ${#numbers.sequence(startPage, endPage)}">
+				<a class="page-link" th:href="@{'/plant?page=' + ${i}}" th:text="${i}"></a>
+			</li>
+		</th:block>
+		<li th:if="${page} < ${totalPage}" class="page-item ">
+			<a class="page-link" th:href="@{'/plant?page=' + ${page+1}}">次へ</a>
+		</li>
+		<li th:if="${endPage} < ${totalPage}" class="page-item ">
+			<a class="page-link" th:href="@{'/plant?page=' + ${totalPage}}">最後</a>
+		</li>
+	</ul>
+</nav>
+
 
 </body>
 
