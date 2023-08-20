@@ -33,3 +33,11 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.example.demo.StocklocationApplication'
+	}
+}
