@@ -1,39 +1,82 @@
 <!DOCTYPE html>
-<html lang ="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/header::head"></head>
 <body>
-<header  th:replace="common/header::header"></header>
-	<div class="margin">
-		<div class="path">
-			<p class="menu-path"><a href="/">Top</a></p>
-			<p class="plant-menu">/ </p>
-			<p class="plant-menu"><a href="/plant">工場マスタ一覧</a></p>
-			<p class="plant-menu">/ 編集</p>
-		</div>
-	</div>
-	<div class="margin">
-		<!--		バリデーション-->
-		<div th:if="${validationError}" th:each="error : ${validationError}">
-			<label class="text-danger" th:text="${error}"></label>
-		</div>
-		<!--		フィールドとDTOからエンティティまでつながっている-->
-		<form th:action="@{/plant/update}" th:object="${plantDto}" th:method="post">
-			<!--			idはデータベースから取得したものをhiddenタグを使って、画面で保持し、「更新」ボタンが押されたときにサーバーに送ります。-->
-			<input type="hidden" th:field="*{id}" th:value="*{id}">
-			<div class="form-row">
-				<div class="form-group">
-					<label>名称</label>
-					<input type="text" th:field="*{name}" class="textbox">
-				</div>
-				<div class="form-group">
-					<label>ふりがな</label>
-					<input type="text" th:field="*{furigana}" class="textbox">
-				</div>
-			</div>
-			<div class="text-center">
-				<input type="submit" value="更新" class="register-button">
-			</div>
-		</form>
-	</div>
+<header th:replace="common/header::header"></header>
+<div class="margin">
+    <div class="path">
+        <p class="menu-path"><a href="/">Top</a></p>
+        <p class="plant-menu">/ </p>
+        <p class="plant-menu"><a href="/plant">工場マスタ一覧</a></p>
+        <p class="plant-menu">/ 編集</p>
+    </div>
+</div>
+<div class="margin">
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <p>a</p>
+    <!--		バリデーション-->
+    <div th:if="${validationError}" th:each="error : ${validationError}">
+        <label id="errorMsg" class="text-danger" th:text="${error}"></label>
+    </div>
+    <!--		フィールドとDTOからエンティティまでつながっている-->
+    <form th:action="@{/plant/update}" th:object="${plantDto}" th:method="post">
+        <!--			idはデータベースから取得したものをhiddenタグを使って、画面で保持し、「更新」ボタンが押されたときにサーバーに送ります。-->
+        <input type="hidden" th:field="*{id}" th:value="*{id}">
+        <div class="form-row">
+            <div class="form-group">
+                <label>名称</label>
+                <input type="text" class="textbox"
+                       th:class="|${(#fields.hasErrors('name') ? 'red' : 'name')} textbox|"
+                       th:field="*{name}">
+            </div>
+            <div class="form-group">
+                <label>ふりがな</label>
+                <input type="text" th:field="*{furigana}" class="textbox">
+            </div>
+        </div>
+        <div class="text-center">
+            <input type="submit" value="更新" class="register-button" id="updateBtn">
+        </div>
+    </form>
+</div>
+<script th:inline="javascript">
+
+	$(function() {
+	    if($('#errorMsg').length) {
+	        var targetPosition = $('#errorMsg').offset().top;
+	    }
+	    $(window).on('load',function() {
+	        console.log('クリックされました！');
+	        window.scrollTo({
+	            top: targetPosition,
+	            behavior: 'smooth'
+            });
+	    });
+	});
+
+
+</script>
 </body>
 </html>

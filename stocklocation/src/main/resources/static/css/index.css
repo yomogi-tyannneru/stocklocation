@@ -148,3 +148,11 @@ table {
 label {
     font-weight: bold;
 }
+
+.red {
+    background-color: #FFCCCC;
+}
+
+.text-danger {
+    color: red;
+}
