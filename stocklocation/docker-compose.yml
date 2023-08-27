@@ -1,0 +1,17 @@
+version: "3"
+services:
+  service-web:
+    build:
+      dockerfile: ./Dockerfile.web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service-mysql
+  service-mysql:
+    build:
+      dockerfile: ./docker-mysql/Dockerfile.mysql    #Dockerfileからビルドすることを示す
+    volumes:
+      - ./docker-mysql/db:/docker-entrypoint-initdb.d  #初期データをマウントする場所
+    image: stock-mysql # イメージの名前
+    environment:
+      - MYSQL_ROOT_PASSWORD=root   #コンテナ内のMySQLを起動する際のパスワードを設定
