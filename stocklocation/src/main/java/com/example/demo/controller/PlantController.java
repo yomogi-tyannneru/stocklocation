@@ -22,7 +22,7 @@ import com.example.demo.entity.Plant;
  */
 //@Componentがbeanの役割　@Controllerに含まれている
 @Controller
-public class PlantController extends ExceptionHandlerController {
+public class PlantController {
     //	他のクラスを呼び出す省略記法　インスタンス化したものをセットしてる　newのみした場合、リポジトリなどがつかえなくなる
     @Autowired
     private AbstractPlantService abstractPlantService;
@@ -56,7 +56,7 @@ public class PlantController extends ExceptionHandlerController {
         //　TODO　登録フォームとカラムの関連付けまとめ
         //　TODO　バリデーション
         model.addAttribute("plantDto", new PlantDto());
-        return "/plant/plant_new";
+        return "plant/plant_new";
     }
 
     /**

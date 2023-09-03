@@ -1,0 +1,29 @@
+version: "3"
+services:
+  service-web:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    tty: true
+    depends_on:
+      service-mysql:
+        condition: service_healthy
+
+  service-mysql:
+    image: mysql
+    volumes:
+      - ./docker-mysql/init:/docker-entrypoint-initdb.d  #初期データをマウントする場所
+      - ./docker-mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: stockdb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: useruser
+      MYSQL_PASSWORD: secret
+      TZ: Asia/Tokyo
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
