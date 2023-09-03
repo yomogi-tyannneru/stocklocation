@@ -56,7 +56,7 @@ public class PlantController {
         //　TODO　登録フォームとカラムの関連付けまとめ
         //　TODO　バリデーション
         model.addAttribute("plantDto", new PlantDto());
-        return "/plant/plant_new";
+        return "plant/plant_new";
     }
 
     /**

@@ -2,16 +2,28 @@ version: "3"
 services:
   service-web:
     build:
-      dockerfile: ./Dockerfile.web
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    tty: true
     depends_on:
-      - service-mysql
+      service-mysql:
+        condition: service_healthy
+
   service-mysql:
-    build:
-      dockerfile: ./docker-mysql/Dockerfile.mysql    #Dockerfileからビルドすることを示す
+    image: mysql
     volumes:
-      - ./docker-mysql/db:/docker-entrypoint-initdb.d  #初期データをマウントする場所
-    image: stock-mysql # イメージの名前
+      - ./docker-mysql/init:/docker-entrypoint-initdb.d  #初期データをマウントする場所
+      - ./docker-mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=root   #コンテナ内のMySQLを起動する際のパスワードを設定
+      MYSQL_DATABASE: stockdb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: useruser
+      MYSQL_PASSWORD: secret
+      TZ: Asia/Tokyo
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
