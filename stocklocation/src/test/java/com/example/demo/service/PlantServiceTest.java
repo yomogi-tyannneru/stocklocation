@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.PlantDto;
 import com.example.demo.entity.Plant;
+import com.example.demo.exception.BusinessException;
 import com.example.demo.repository.PlantRepository;
 import com.example.demo.util.Datetime;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -161,6 +163,14 @@ class PlantServiceTest {
 
         //　モックの呼び出し回数の検証　引数の検証　Repository.saveの引数
         verify(mockRepository, times(1)).save(expectedParam);
+
+
+        assertThatThrownBy(
+                () -> テスト対象クラス.テスト対象メソッド()
+        ).isInstanceOfSatisfying(
+                BusinessException.class,
+                (e) -> assertThat(e.getArg1()).isEqualTo("エラーメッセージ")
+        );
     }
     //　Mockitoの場合
     //　@InjectMocks
