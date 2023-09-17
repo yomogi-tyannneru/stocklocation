@@ -1,11 +1,12 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.demo.dto.PlantDto;
+import com.example.demo.entity.Plant;
 import com.example.demo.service.AbstractPlantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,14 +16,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.entity.Plant;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 工場 Controller
  */
 //@Componentがbeanの役割　@Controllerに含まれている
 @Controller
-public class PlantController extends ExceptionHandlerController {
+public class PlantController {
     //	他のクラスを呼び出す省略記法　インスタンス化したものをセットしてる　newのみした場合、リポジトリなどがつかえなくなる
     @Autowired
     private AbstractPlantService abstractPlantService;
@@ -41,6 +43,17 @@ public class PlantController extends ExceptionHandlerController {
         List<Plant> plantlist = abstractPlantService.searchAll();
         //	"引数を渡す名称", 渡すデータ
         model.addAttribute("plantlist", plantlist);
+
+        //////////////////////////////////
+        // ログイン中のユーザー情報の取得の仕方
+        //////////////////////////////////
+        // SecurityContextHolderからAuthenticationオブジェクトを取得
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        // Authenticationオブジェクトからユーザー情報を取得
+        System.out.println("authentication.getName()=" + authentication.getName());  // ユーザー名を表示
+        System.out.println("authentication.getAuthorities()=" + authentication.getAuthorities());  // 権限情報を表示
+
         //	templatesからのパス
         return "plant/plant";
     }
